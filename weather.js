@@ -48,14 +48,17 @@ const displayWeather = (weatherData) => {
   const condition = document.createElement('h3');
   condition.textContent = text;
 
+  const iconDiv = document.createElement('div');
   const weatherIcon = document.createElement('img');
   weatherIcon.setAttribute('src', `https:${icon}`);
   weatherIcon.setAttribute('alt', 'weather icon');
+  iconDiv.appendChild(weatherIcon);
+  iconDiv.setAttribute('id', 'icon-div');
 
   weatherDisplay.appendChild(location);
   weatherDisplay.appendChild(temperature);
   weatherDisplay.appendChild(condition);
-  weatherDisplay.appendChild(weatherIcon);
+  weatherDisplay.appendChild(iconDiv);
 
   if (weatherContainer.lastChild.id === 'weather-display') {
     weatherContainer.removeChild(weatherContainer.lastChild);
