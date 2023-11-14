@@ -78,3 +78,9 @@ const fetchWeather = async () => {
 searchButton.addEventListener('click', () => {
   fetchWeather();
 });
+
+searchBar.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    fetchWeather();
+  }
+});
