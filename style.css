@@ -80,9 +80,13 @@ body {
   color: #333;
 }
 
+#icon-div {
+  border-radius: 50%;
+}
+
 #weather-display img {
-  align-self: center;
-  align-items: center;
+  background-color: black;
+  border-radius: 10px;
 }
 
 video {
