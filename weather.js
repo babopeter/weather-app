@@ -19,7 +19,7 @@ const processData = (data) => {
   const { location, current } = data;
   const { name, region, country } = location;
   const { temp_c, condition } = current;
-  const { text, icon } = condition;
+  const { text, icon, code } = condition;
   const weatherData = {
     name,
     region,
@@ -27,6 +27,7 @@ const processData = (data) => {
     temp_c,
     text,
     icon,
+    code,
   };
   return weatherData;
 };
@@ -73,6 +74,7 @@ const fetchWeather = async () => {
   const weatherData = processData(data);
   console.log(weatherData);
   displayWeather(weatherData);
+  loadBgVideo(selectBgVideo(weatherData));
 };
 
 searchButton.addEventListener('click', () => {
@@ -84,3 +86,59 @@ searchBar.addEventListener('keyup', (event) => {
     fetchWeather();
   }
 });
+
+const loadBgVideo = (link) => {
+  const video = document.createElement('video');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('loop', '');
+  video.setAttribute('muted', '');
+  video.setAttribute('id', 'bg-video');
+  video.setAttribute('src', link);
+  document.body.appendChild(video);
+};
+
+const selectBgVideo = (weatherData) => {
+  const { code } = weatherData;
+  if (code === 1000) {
+    return './videos/clear.mp4';
+  }
+  if (code === 1003) {
+    return './videos/partly-cloudy.mp4';
+  }
+  if (code === 1006 || code === 1009) {
+    return './videos/cloudy.mp4';
+  }
+  if (code === 1030 || code === 1135) {
+    return './videos/mist.mp4';
+  }
+  if (code === 1063 || code === 1180 || code === 1183 || code === 1186 || code === 1189
+    || code === 1192 || code === 1195 || code === 1240 || code === 1243 || code === 1246) {
+    return './videos/light-rain.mp4';
+  }
+  if (code === 1066 || code === 1210 || code === 1213 || code === 1216 || code === 1219
+    || code === 1222 || code === 1225 || code === 1255 || code === 1258 || code === 1261
+    || code === 1264) {
+    return './videos/snow.mp4';
+  }
+  if (code === 1069 || code === 1072 || code === 1204 || code === 1207 || code === 1249
+    || code === 1252) {
+    return './videos/heavy-rain.mp4';
+  }
+  if (code === 1087 || code === 1273 || code === 1276) {
+    return './videos/thunderstorm.mp4';
+  }
+  if (code === 1114 || code === 1117 || code === 1210 || code === 1213 || code === 1216
+    || code === 1219 || code === 1222 || code === 1225 || code === 1255 || code === 1258
+    || code === 1261 || code === 1264) {
+    return './videos/sleet.mp4';
+  }
+  if (code === 1150 || code === 1153 || code === 1168 || code === 1171 || code === 1180
+    || code === 1183 || code === 1186 || code === 1189 || code === 1192 || code === 1195
+    || code === 1240 || code === 1243 || code === 1246) {
+    return './videos/drizzle.mp4';
+  }
+  if (code === 1279 || code === 1282) {
+    return './videos/snowstorm.mp4';
+  }
+  return './videos/default.mp4';
+};
