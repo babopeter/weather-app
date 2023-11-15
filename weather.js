@@ -69,7 +69,7 @@ const displayWeather = (weatherData) => {
 
 const fetchWeather = async () => {
   const city = searchBar.value;
-  const url = `http://api.weatherapi.com/v1/current.json?key=29c39c47ff36404ba9d124845231211&q=${city}`;
+  const url = `https://api.weatherapi.com/v1/current.json?key=29c39c47ff36404ba9d124845231211&q=${city}`;
 
   const response = await fetch(url, { mode: 'cors' });
   const data = await response.json();
@@ -77,6 +77,7 @@ const fetchWeather = async () => {
   const weatherData = processData(data);
   console.log(weatherData);
   displayWeather(weatherData);
+  removeBgVideo();
   loadBgVideo(selectBgVideo(weatherData));
 };
 
@@ -98,6 +99,12 @@ const loadBgVideo = (link) => {
   video.setAttribute('id', 'bg-video');
   video.setAttribute('src', link);
   document.body.appendChild(video);
+};
+
+const removeBgVideo = () => {
+  if (document.body.lastChild.id === 'bg-video') {
+    document.body.removeChild(document.body.lastChild);
+  }
 };
 
 const selectBgVideo = (weatherData) => {
@@ -145,3 +152,5 @@ const selectBgVideo = (weatherData) => {
   }
   return './videos/default.mp4';
 };
+
+loadBgVideo(selectBgVideo(0));
